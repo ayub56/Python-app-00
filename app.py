@@ -1,4 +1,4 @@
-import streamlit as st 
+import streamlit as st
 import pandas as pd
 import os
 from io import BytesIO 
@@ -49,7 +49,7 @@ if uploaded_files:
 
             with col2:
                 if st.button(f"Filled  missing values for {file.name}"):
-                    numeric_cols = df.select_dftypes(include=[ 'number']).columns
+                    numeric_cols = df.select_dtypes(include=[ 'number']).columns
                     df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
                     st.write("Missing Values have been Filled!")
 

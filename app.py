@@ -21,9 +21,9 @@ if uploaded_files:
 
 
         if file.ext ==".csv":
-            df = pd.read_csv(file)
+            dt= pd.read_csv(file)
         elif file.ext ==".xlsx":
-         df = pd.read_excel(file)
+         dt = pd.read_excel(file)
         else:
             st.error(f"Unsupported file type : {file.ext}")
             continue    
@@ -35,7 +35,7 @@ if uploaded_files:
 
         # Shows 5 rows of our dataframe(df)
         st.write("Preview the head of dataframe")
-        st.dataframe(df.head()) 
+        st.dataframe(dt.head()) 
 
         # Options for Data cleaning:
         st.subheader("Data Cleaning Options")
@@ -44,19 +44,19 @@ if uploaded_files:
 
             with col1:
                 if st.button(f"Remove duplicate from {file.name}"):
-                    df.drop_duplicates(inplace=True)
+                    dt.drop_duplicates(inplace=True)
                     st.write("Duplicates Removed")
 
             with col2:
                 if st.button(f"Filled  missing values for {file.name}"):
-                    numeric_cols = df.select_dtypes(include=[ 'number']).columns
-                    df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].mean())
+                    numeric_cols = dt.select_dtypes(include=[ 'number']).columns
+                    dt[numeric_cols] = dt[numeric_cols].fillna(dt[numeric_cols].mean())
                     st.write("Missing Values have been Filled!")
 
                     #Choose specific column to keep or convert:
                     st.subheader("Select Column to Convert")
-                    columns = st.multiselect(f"Choose Column for {file.name}" , df.columns, default=df.columns)
-                    df = df[columns]
+                    columns = st.multiselect(f"Choose Column for {file.name}" , dt.columns, default=dt.columns)
+                    dt = dt[columns]
 
                     # Create some visualizatuions:
                     st.subheader("Data Visulization ")
